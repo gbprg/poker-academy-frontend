@@ -11,11 +11,14 @@ node_modules
 dist
 dist-ssr
 *.local
+vercel.json
 *.tsbuildinfo
 .env
 .env.*
 !.env.example
 coverage
+playwright-report/
+test-results/
 .superpowers/
 .worktrees/
 

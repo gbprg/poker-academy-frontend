@@ -1,32 +1,35 @@
-# React + TypeScript + Vite
+# Poker Academy — frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+SPA React/Vite da Poker Academy. O navegador acessa o backend apenas por caminhos relativos sob `/api`; nenhum segredo deve ser exposto em variáveis `VITE_*`.
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js 22.23.1
+- npm 12.2.0
+- backend local em `http://localhost:3000` (para integração real)
 
-## React Compiler
+## Desenvolvimento
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm ci
+cp .env.example .env.local
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+`VITE_DEV_API_TARGET` configura somente o alvo do proxy do servidor Vite. Essa variável não é consumida pelo código entregue ao navegador.
+
+## Verificação
+
+```bash
+npm test
+npm run test:e2e
+npm run lint
+npm run build
+npm audit --audit-level=high
+```
+
+O E2E inicia uma API descartável e comprova o deep link da SPA e a precedência do proxy `/api`.
+
+## Vercel
+
+`vercel.json.template` registra a ordem obrigatória dos rewrites: `/api` antes do fallback da SPA. A P01-T05 deve copiar o template para o `vercel.json` ignorado, substituir `REPLACE_WITH_RENDER_HOST` pela URL HTTPS realmente provisionada no Render e então validar o preview. O placeholder não é implantável.

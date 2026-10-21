@@ -25,6 +25,28 @@ a { color: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 .app-shell { min-height: 100vh; }
 
+.topbar-actions { display: inline-flex; gap: 12px; align-items: center; }
+
+.auth-page { display: grid; min-height: calc(100vh - 90px); place-items: center; padding: 48px 20px; }
+
+.auth-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(420px, 100%);
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+}
+
+.auth-card h1 { margin: 0; font-size: clamp(28px, 5vw, 38px); }
+.auth-copy { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.auth-field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.auth-field-error { margin: 0; color: #f0a3a3; font-size: 12px; letter-spacing: 0; text-transform: none; }
+.auth-form-error { margin: 0; padding: 10px 12px; border: 1px solid rgba(240, 163, 163, 0.5); border-radius: 10px; color: #f4c2c2; font-size: 13px; }
+.auth-link { align-self: center; color: var(--muted); font-size: 13px; }
+
 .topbar {
   display: flex;
   align-items: center;

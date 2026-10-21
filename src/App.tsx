@@ -1,6 +1,11 @@
-import { Activity, BookOpen, ShieldCheck, Spade } from 'lucide-react'
+import { Activity, BookOpen, LogOut, ShieldCheck, Spade } from 'lucide-react'
 import { Link, Route, Routes } from 'react-router'
 import { Badge } from './components/ui/badge'
+import { Button } from './components/ui/button'
+import { ActivateAccountPage } from './features/auth/ActivateAccountPage'
+import { useAuth } from './features/auth/auth-context'
+import { LoginPage } from './features/auth/LoginPage'
+import { RequireAuth } from './features/auth/RequireAuth'
 import { SystemStatus } from './features/system/SystemStatus'
 
 function LandingPage() {
@@ -14,8 +19,8 @@ function LandingPage() {
           decisão sem atalhos e sem prometer resultados.
         </p>
         <div className="hero-actions">
-          <Link className="primary-action" to="/dashboard">
-            Abrir área de estudo
+          <Link className="primary-action" to="/entrar">
+            Entrar
           </Link>
           <span className="privacy-note">
             <ShieldCheck size={16} aria-hidden="true" /> Privacidade desde a base
@@ -50,17 +55,27 @@ function LandingPage() {
 }
 
 function DashboardPage() {
+  const { user, logout } = useAuth()
+
   return (
     <main className="placeholder-page">
-      <p className="eyebrow">Área autenticada em construção</p>
-      <h1>Dashboard</h1>
-      <p>Este endereço já suporta acesso direto. O conteúdo virá na P02.</p>
-      <Link to="/">Voltar ao início</Link>
+      <p className="eyebrow">Área autenticada</p>
+      <h1>Olá, {user?.name}</h1>
+      <p>
+        Seu painel de treino está pronto para receber a jornada. Ainda não há
+        conteúdo estratégico publicado, então nada aqui é apresentado como
+        gabarito.
+      </p>
+      <Button variant="ghost" onClick={() => void logout()}>
+        <LogOut size={16} aria-hidden="true" /> Sair
+      </Button>
     </main>
   )
 }
 
 function App() {
+  const { isAuthenticated, logout } = useAuth()
+
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -68,11 +83,31 @@ function App() {
           <span className="brand-mark" aria-hidden="true">PA</span>
           <span>Poker Academy</span>
         </Link>
-        <Badge className="environment-badge">Foundation</Badge>
+        <div className="topbar-actions">
+          <Badge className="environment-badge">Foundation</Badge>
+          {isAuthenticated ? (
+            <Button variant="ghost" onClick={() => void logout()}>
+              <LogOut size={16} aria-hidden="true" /> Sair
+            </Button>
+          ) : (
+            <Link className="primary-action" to="/entrar">
+              Entrar
+            </Link>
+          )}
+        </div>
       </header>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/entrar" element={<LoginPage />} />
+        <Route path="/ativar-conta" element={<ActivateAccountPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <DashboardPage />
+            </RequireAuth>
+          }
+        />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     </div>

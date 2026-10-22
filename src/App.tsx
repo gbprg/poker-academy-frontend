@@ -6,6 +6,7 @@ import { ActivateAccountPage } from './features/auth/ActivateAccountPage'
 import { useAuth } from './features/auth/auth-context'
 import { LoginPage } from './features/auth/LoginPage'
 import { RequireAuth } from './features/auth/RequireAuth'
+import { RangesPreflopPage } from './features/ranges/RangesPreflopPage'
 import { SystemStatus } from './features/system/SystemStatus'
 
 function LandingPage() {
@@ -86,9 +87,14 @@ function App() {
         <div className="topbar-actions">
           <Badge className="environment-badge">Foundation</Badge>
           {isAuthenticated ? (
-            <Button variant="ghost" onClick={() => void logout()}>
-              <LogOut size={16} aria-hidden="true" /> Sair
-            </Button>
+            <>
+              <Link className="primary-action" to="/ranges/preflop">
+                Ranges pré-flop
+              </Link>
+              <Button variant="ghost" onClick={() => void logout()}>
+                <LogOut size={16} aria-hidden="true" /> Sair
+              </Button>
+            </>
           ) : (
             <Link className="primary-action" to="/entrar">
               Entrar
@@ -105,6 +111,14 @@ function App() {
           element={
             <RequireAuth>
               <DashboardPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/ranges/preflop"
+          element={
+            <RequireAuth>
+              <RangesPreflopPage />
             </RequireAuth>
           }
         />

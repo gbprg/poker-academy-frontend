@@ -2,9 +2,11 @@ import { Activity, BookOpen, LogOut, ShieldCheck, Spade } from 'lucide-react'
 import { Link, Route, Routes } from 'react-router'
 import { Badge } from './components/ui/badge'
 import { Button } from './components/ui/button'
+import { StrategySourcesAdminPage } from './features/admin/strategy-sources/StrategySourcesAdminPage'
 import { ActivateAccountPage } from './features/auth/ActivateAccountPage'
 import { useAuth } from './features/auth/auth-context'
 import { LoginPage } from './features/auth/LoginPage'
+import { RequireAdmin } from './features/auth/RequireAdmin'
 import { RequireAuth } from './features/auth/RequireAuth'
 import { SystemStatus } from './features/system/SystemStatus'
 
@@ -86,9 +88,14 @@ function App() {
         <div className="topbar-actions">
           <Badge className="environment-badge">Foundation</Badge>
           {isAuthenticated ? (
-            <Button variant="ghost" onClick={() => void logout()}>
-              <LogOut size={16} aria-hidden="true" /> Sair
-            </Button>
+            <>
+              <Link className="primary-action" to="/admin/fontes">
+                Fontes estratégicas
+              </Link>
+              <Button variant="ghost" onClick={() => void logout()}>
+                <LogOut size={16} aria-hidden="true" /> Sair
+              </Button>
+            </>
           ) : (
             <Link className="primary-action" to="/entrar">
               Entrar
@@ -105,6 +112,16 @@ function App() {
           element={
             <RequireAuth>
               <DashboardPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/fontes"
+          element={
+            <RequireAuth>
+              <RequireAdmin>
+                <StrategySourcesAdminPage />
+              </RequireAdmin>
             </RequireAuth>
           }
         />

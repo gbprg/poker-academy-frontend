@@ -547,3 +547,26 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .admin-issues p {
   margin-top: 0.4rem;
 }
+
+.betting-timeline ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.betting-timeline-step {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+}
+
+.betting-timeline-step-active {
+  border-color: rgba(217, 164, 65, 0.9);
+  color: var(--gold);
+}
+
+.betting-timeline-step:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

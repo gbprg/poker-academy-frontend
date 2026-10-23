@@ -6,6 +6,8 @@ import { ActivateAccountPage } from './features/auth/ActivateAccountPage'
 import { useAuth } from './features/auth/auth-context'
 import { LoginPage } from './features/auth/LoginPage'
 import { RequireAuth } from './features/auth/RequireAuth'
+import { PostflopStreetExplorerPage } from './features/situations/postflop/PostflopStreetExplorerPage'
+import { RangesPreflopPage } from './features/ranges/RangesPreflopPage'
 import { SystemStatus } from './features/system/SystemStatus'
 
 function LandingPage() {
@@ -72,6 +74,7 @@ function DashboardPage() {
     </main>
   )
 }
+export { DashboardPage }
 
 function App() {
   const { isAuthenticated, logout } = useAuth()
@@ -86,9 +89,17 @@ function App() {
         <div className="topbar-actions">
           <Badge className="environment-badge">Foundation</Badge>
           {isAuthenticated ? (
-            <Button variant="ghost" onClick={() => void logout()}>
-              <LogOut size={16} aria-hidden="true" /> Sair
-            </Button>
+            <>
+              <Link className="primary-action" to="/ranges/preflop">
+                Ranges
+              </Link>
+              <Link className="primary-action" to="/situacoes/postflop">
+                Post-flop
+              </Link>
+              <Button variant="ghost" onClick={() => void logout()}>
+                <LogOut size={16} aria-hidden="true" /> Sair
+              </Button>
+            </>
           ) : (
             <Link className="primary-action" to="/entrar">
               Entrar
@@ -101,10 +112,18 @@ function App() {
         <Route path="/entrar" element={<LoginPage />} />
         <Route path="/ativar-conta" element={<ActivateAccountPage />} />
         <Route
-          path="/dashboard"
+          path="/ranges/preflop"
           element={
             <RequireAuth>
-              <DashboardPage />
+              <RangesPreflopPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/situacoes/postflop"
+          element={
+            <RequireAuth>
+              <PostflopStreetExplorerPage />
             </RequireAuth>
           }
         />

@@ -173,3 +173,34 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
+
+.community-board-cards {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.community-board-card {
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  padding: 0.8rem 1rem;
+  display: flex;
+  gap: 0.4rem;
+  min-width: 3.2rem;
+  justify-content: center;
+}
+
+.strategy-breakdown ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.strategy-breakdown li {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.8rem;
+}

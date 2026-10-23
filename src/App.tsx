@@ -2,9 +2,11 @@ import { Activity, BookOpen, LogOut, ShieldCheck, Spade } from 'lucide-react'
 import { Link, Route, Routes } from 'react-router'
 import { Badge } from './components/ui/badge'
 import { Button } from './components/ui/button'
+import { StrategySourcesAdminPage } from './features/admin/strategy-sources/StrategySourcesAdminPage'
 import { ActivateAccountPage } from './features/auth/ActivateAccountPage'
 import { useAuth } from './features/auth/auth-context'
 import { LoginPage } from './features/auth/LoginPage'
+import { RequireAdmin } from './features/auth/RequireAdmin'
 import { RequireAuth } from './features/auth/RequireAuth'
 import { PostflopStreetExplorerPage } from './features/situations/postflop/PostflopStreetExplorerPage'
 import { RangesPreflopPage } from './features/ranges/RangesPreflopPage'
@@ -101,6 +103,9 @@ function App() {
               <Link className="primary-action" to="/historico">
                 Histórico
               </Link>
+              <Link className="primary-action" to="/admin/fontes">
+                Fontes estratégicas
+              </Link>
               <Button variant="ghost" onClick={() => void logout()}>
                 <LogOut size={16} aria-hidden="true" /> Sair
               </Button>
@@ -153,6 +158,16 @@ function App() {
           element={
             <RequireAuth>
               <TrainingHistoryPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/fontes"
+          element={
+            <RequireAuth>
+              <RequireAdmin>
+                <StrategySourcesAdminPage />
+              </RequireAdmin>
             </RequireAuth>
           }
         />

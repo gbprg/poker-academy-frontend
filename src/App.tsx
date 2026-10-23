@@ -9,6 +9,8 @@ import { RequireAuth } from './features/auth/RequireAuth'
 import { PostflopStreetExplorerPage } from './features/situations/postflop/PostflopStreetExplorerPage'
 import { RangesPreflopPage } from './features/ranges/RangesPreflopPage'
 import { SystemStatus } from './features/system/SystemStatus'
+import { TrainingHistoryPage } from './features/training/TrainingHistoryPage'
+import { TrainingPlayerPage } from './features/training/TrainingPlayerPage'
 
 function LandingPage() {
   return (
@@ -96,6 +98,9 @@ function App() {
               <Link className="primary-action" to="/situacoes/postflop">
                 Post-flop
               </Link>
+              <Link className="primary-action" to="/historico">
+                Histórico
+              </Link>
               <Button variant="ghost" onClick={() => void logout()}>
                 <LogOut size={16} aria-hidden="true" /> Sair
               </Button>
@@ -112,6 +117,14 @@ function App() {
         <Route path="/entrar" element={<LoginPage />} />
         <Route path="/ativar-conta" element={<ActivateAccountPage />} />
         <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <DashboardPage />
+            </RequireAuth>
+          }
+        />
+        <Route
           path="/ranges/preflop"
           element={
             <RequireAuth>
@@ -124,6 +137,22 @@ function App() {
           element={
             <RequireAuth>
               <PostflopStreetExplorerPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/treinar"
+          element={
+            <RequireAuth>
+              <TrainingPlayerPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/historico"
+          element={
+            <RequireAuth>
+              <TrainingHistoryPage />
             </RequireAuth>
           }
         />

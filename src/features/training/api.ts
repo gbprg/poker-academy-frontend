@@ -205,6 +205,15 @@ export async function fetchEligibleCount(input: {
   return eligibleCountResponseSchema.parse(response);
 }
 
+const analyticsOverviewSchema = z.object({
+  sessions: z.number(),
+  attempts: z.number(),
+  completedSessions: z.number(),
+  correctAttempts: z.number(),
+  accuracy: z.number(),
+});
+export type AnalyticsOverview = z.infer<typeof analyticsOverviewSchema>;
+
 export async function fetchAnalyticsOverview() {
   const response = await apiRequest<unknown>('/api/analytics/overview');
   return analyticsOverviewSchema.parse(response);

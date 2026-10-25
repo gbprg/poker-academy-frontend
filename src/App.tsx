@@ -103,6 +103,12 @@ function App() {
               <Link className="primary-action" to="/historico">
                 Histórico
               </Link>
+              <Link
+                to="/analises"
+                className="rounded-md px-2 py-1 text-sm text-slate-300 transition hover:bg-slate-900 hover:text-slate-100"
+              >
+                Análises
+              </Link>
               <Link className="primary-action" to="/admin/fontes">
                 Fontes estratégicas
               </Link>

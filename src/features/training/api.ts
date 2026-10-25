@@ -204,3 +204,8 @@ export async function fetchEligibleCount(input: {
   });
   return eligibleCountResponseSchema.parse(response);
 }
+
+export async function fetchAnalyticsOverview() {
+  const response = await apiRequest<unknown>('/api/analytics/overview');
+  return analyticsOverviewSchema.parse(response);
+}

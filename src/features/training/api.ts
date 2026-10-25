@@ -235,3 +235,21 @@ export async function fetchAnalyticsByStreet() {
   const response = await apiRequest<unknown>('/api/analytics/by-street');
   return analyticsByStreetSchema.parse(response);
 }
+
+const profileSchema = z.object({
+  settings: z.record(z.string(), z.unknown()),
+});
+export type Profile = z.infer<typeof profileSchema>;
+
+export async function fetchProfile() {
+  const response = await apiRequest<unknown>('/api/profile');
+  return profileSchema.parse(response);
+}
+
+export async function updateProfile(settings: Record<string, unknown>) {
+  const response = await apiRequest<unknown>('/api/profile', {
+    method: 'PUT',
+    body: JSON.stringify({ settings }),
+  });
+  return profileSchema.parse(response);
+}

@@ -185,3 +185,22 @@ export async function createPreset(input: { name: string; filters: Record<string
 export async function deletePreset(presetId: string) {
   await apiRequest<unknown>(`/api/training/presets/${presetId}`, { method: 'DELETE' });
 }
+
+const eligibleCountResponseSchema = z.object({
+  eligible: z.number(),
+  count: z.number().optional(),
+});
+
+export type EligibleCountResponse = z.infer<typeof eligibleCountResponseSchema>;
+
+export async function fetchEligibleCount(input: {
+  spotId?: string;
+  strategyVersionId?: string;
+  filters?: Record<string, unknown>;
+}) {
+  const response = await apiRequest<unknown>('/api/training/eligible-count', {
+    method: 'POST',
+    body: JSON.stringify(input),
+  });
+  return eligibleCountResponseSchema.parse(response);
+}

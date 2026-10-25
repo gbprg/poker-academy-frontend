@@ -24,6 +24,10 @@
     if (typeof presetFilters.tableSize === 'string') setTableSize(Number(presetFilters.tableSize));
     setEligible(null);
   }
+
+      </section>
+
+      <section className="range-card">
         </div>
 
         {presetsData && presetsData.presets.length > 0 ? (

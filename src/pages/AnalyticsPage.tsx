@@ -31,7 +31,7 @@ export function AnalyticsPage() {
           <p className="mt-2 text-2xl font-semibold text-slate-100">{data?.attempts ?? 0}</p>
         </article>
         <article className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
-          <p className="text-xs uppercase tracking-wide text-slate-500">Acurácia (>=0.8)</p>
+          <p className="text-xs uppercase tracking-wide text-slate-500">Acurácia (&gt;=0.8)</p>
           <p className="mt-2 text-2xl font-semibold text-slate-100">
             {((data?.accuracy ?? 0) * 100).toFixed(1)}%
           </p>

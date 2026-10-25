@@ -1,15 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+
 import { startQuickQuiz } from '../features/training/api';
 
 export function QuickQuizPage() {
-  const navigate = useNavigate();
+
   const mutation = useMutation({
     mutationFn: startQuickQuiz,
     onSuccess: (data) => {
-      if (data.question) {
-        navigate(`/treinar/${data.session.id}/pergunta/${data.question.position}`);
-      }
+      if (data.question) { window.location.href = `/treinar/${data.session.id}/pergunta/${data.question.position}`; }
     },
   });
 

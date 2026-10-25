@@ -218,3 +218,20 @@ export async function fetchAnalyticsOverview() {
   const response = await apiRequest<unknown>('/api/analytics/overview');
   return analyticsOverviewSchema.parse(response);
 }
+
+const analyticsByStreetSchema = z.object({
+  items: z.array(
+    z.object({
+      street: z.string(),
+      total: z.number(),
+      correct: z.number(),
+      accuracy: z.number(),
+    }),
+  ),
+});
+export type AnalyticsByStreet = z.infer<typeof analyticsByStreetSchema>;
+
+export async function fetchAnalyticsByStreet() {
+  const response = await apiRequest<unknown>('/api/analytics/by-street');
+  return analyticsByStreetSchema.parse(response);
+}

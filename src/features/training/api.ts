@@ -153,3 +153,35 @@ export async function fetchTrainingHistory() {
   const response = await apiRequest<unknown>('/api/training/history');
   return historyResponseSchema.parse(response);
 }
+
+const trainingPresetSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  name: z.string(),
+  filters: z.unknown(),
+  scenario: z.unknown(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+const presetsResponseSchema = z.object({ presets: z.array(trainingPresetSchema) });
+const presetResponseSchema = z.object({ preset: trainingPresetSchema });
+
+export type TrainingPreset = z.infer<typeof trainingPresetSchema>;
+
+export async function fetchPresets() {
+  const response = await apiRequest<unknown>('/api/training/presets');
+  return presetsResponseSchema.parse(response);
+}
+
+export async function createPreset(input: { name: string; filters: Record<string, unknown>; scenario?: Record<string, unknown> }) {
+  const response = await apiRequest<unknown>('/api/training/presets', {
+    method: 'POST',
+    body: JSON.stringify(input),
+  });
+  return presetResponseSchema.parse(response);
+}
+
+export async function deletePreset(presetId: string) {
+  await apiRequest<unknown>(`/api/training/presets/${presetId}`, { method: 'DELETE' });
+}

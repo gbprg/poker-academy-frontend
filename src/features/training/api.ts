@@ -253,3 +253,8 @@ export async function updateProfile(settings: Record<string, unknown>) {
   });
   return profileSchema.parse(response);
 }
+
+export async function startQuickQuiz() {
+  const response = await apiRequest<unknown>('/api/training/quick', { method: 'POST' });
+  return createSessionResponseSchema.parse(response);
+}

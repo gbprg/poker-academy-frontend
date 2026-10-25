@@ -115,6 +115,12 @@ function App() {
               >
                 Perfil
               </Link>
+              <Link
+                to="/quiz-rapido"
+                className="rounded-md px-2 py-1 text-sm text-slate-300 transition hover:bg-slate-900 hover:text-slate-100"
+              >
+                Quiz rápido
+              </Link>
               <Link className="primary-action" to="/admin/fontes">
                 Fontes estratégicas
               </Link>

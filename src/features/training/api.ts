@@ -153,3 +153,22 @@ export async function fetchTrainingHistory() {
   const response = await apiRequest<unknown>('/api/training/history');
   return historyResponseSchema.parse(response);
 }
+
+const eligibleCountResponseSchema = z.object({
+  eligible: z.number(),
+  count: z.number().optional(),
+});
+
+export type EligibleCountResponse = z.infer<typeof eligibleCountResponseSchema>;
+
+export async function fetchEligibleCount(input: {
+  spotId?: string;
+  strategyVersionId?: string;
+  filters?: Record<string, unknown>;
+}) {
+  const response = await apiRequest<unknown>('/api/training/eligible-count', {
+    method: 'POST',
+    body: JSON.stringify(input),
+  });
+  return eligibleCountResponseSchema.parse(response);
+}

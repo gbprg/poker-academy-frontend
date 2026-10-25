@@ -13,6 +13,7 @@ import { RangesPreflopPage } from './features/ranges/RangesPreflopPage'
 import { SystemStatus } from './features/system/SystemStatus'
 import { TrainingHistoryPage } from './features/training/TrainingHistoryPage'
 import { TrainingPlayerPage } from './features/training/TrainingPlayerPage'
+import { TrainingConfiguratorPage } from './features/training/TrainingConfiguratorPage'
 
 function LandingPage() {
   return (
@@ -103,6 +104,9 @@ function App() {
               <Link className="primary-action" to="/historico">
                 Histórico
               </Link>
+              <Link className="primary-action" to="/treinar/configurar">
+                Configurar treino
+              </Link>
               <Link className="primary-action" to="/admin/fontes">
                 Fontes estratégicas
               </Link>
@@ -142,6 +146,14 @@ function App() {
           element={
             <RequireAuth>
               <PostflopStreetExplorerPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/treinar/configurar"
+          element={
+            <RequireAuth>
+              <TrainingConfiguratorPage />
             </RequireAuth>
           }
         />

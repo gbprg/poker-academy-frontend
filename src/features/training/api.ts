@@ -258,3 +258,47 @@ export async function startQuickQuiz() {
   const response = await apiRequest<unknown>('/api/training/quick', { method: 'POST' });
   return createSessionResponseSchema.parse(response);
 }
+
+const reviewDueSchema = z.object({
+  count: z.number(),
+  items: z.array(
+    z.object({
+      id: z.string(),
+      spotId: z.string(),
+      strategyVersionId: z.string(),
+      nodeId: z.string().nullable(),
+      dueAt: z.string(),
+      spot: z
+        .object({
+          spotKey: z.string().optional(),
+          format: z.string().optional(),
+          street: z.string().optional(),
+          tableSize: z.number().optional(),
+        })
+        .nullable(),
+    }),
+  ),
+});
+export type ReviewDue = z.infer<typeof reviewDueSchema>;
+
+export async function fetchReviewDue() {
+  const response = await apiRequest<unknown>('/api/review/due');
+  return reviewDueSchema.parse(response);
+}
+
+const reviewAnswerSchema = z.object({
+  item: z.object({
+    id: z.string(),
+    dueAt: z.string(),
+    intervalDays: z.number(),
+    repetitions: z.number(),
+  }),
+});
+
+export async function answerReview(reviewItemId: string, quality?: number) {
+  const response = await apiRequest<unknown>('/api/review/answer', {
+    method: 'POST',
+    body: JSON.stringify({ reviewItemId, quality }),
+  });
+  return reviewAnswerSchema.parse(response);
+}
